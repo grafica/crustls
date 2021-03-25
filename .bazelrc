@@ -1,0 +1,2 @@
+build --crosstool_top=@buildbuddy_toolchain//:toolchain
+build --extra_toolchains=@buildbuddy_toolchain//:cc_toolchain
