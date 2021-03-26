@@ -1,30 +1,18 @@
 
-genrule(
-    name = "cargo_metadata",
-    srcs = [
-        "Cargo.toml",
-        "Cargo.lock",
-        "//src:rust_srcs",
-    ] + glob(["src/**"]),
-    outs = ["cargo_metadata.json"],
-    cmd = "RUSTC=$(location //:rustc) $(location //:cargo) metadata --offline > $(location cargo_metadata.json)",
-    tools = [
-        "//:cargo",
-        "//:rustc",
-    ]
-)
 
 genrule(
     name = "crustls_h",
     srcs = [
-        "//:cargo_metadata",
+        "metadata.json",
         "cbindgen.toml",
         "Cargo.toml",
         "Cargo.lock",
         "//src:rust_srcs",
     ] + glob(["src/**"]),
     outs = ["crustls.h"],
-    cmd = "PATH=$$PATH:$(location //:cargo) $(location //:cargo_bin_cbindgen) --lockfile $(location Cargo.lock) --metadata $(location //:cargo_metadata) --config $(location //:cbindgen.toml) --lang C > $(location crustls.h)",
+    cmd = '''sed "s#CARGO_CRATE_PATH#$$(pwd)#g" metadata.json > treated-metadata.json && \
+    PATH=$$PATH:$(location //:cargo) $(location //:cargo_bin_cbindgen) --lockfile $(location Cargo.lock) --metadata treated-metadata.json --config $(location //:cbindgen.toml) --lang C > $(location crustls.h)
+    ''',
     tools = [
         "//:cargo_bin_cbindgen",
         "//:cargo",
@@ -51,4 +39,17 @@ alias(
         "@rules_rust//rust/platform:x86_64-pc-windows-msvc": "@rust_windows_x86_64//:rustc",
         "@rules_rust//rust/platform:x86_64-unknown-linux-gnu": "@rust_linux_x86_64//:rustc",
     }),
+)
+
+platform(
+    name = "docker_image_platform",
+    constraint_values = [
+        "@bazel_tools//platforms:x86_64",
+        "@bazel_tools//platforms:linux",
+        "@bazel_tools//tools/cpp:clang",
+    ],
+    exec_properties = {
+        "OSFamily": "Linux",
+        "container-image": "docker://gcr.io/gem5-test/ubuntu-20.04_all-dependencies",
+    },
 )

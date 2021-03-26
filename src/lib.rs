@@ -157,5 +157,6 @@ unsafe fn arc_with_incref_from_raw<T>(v: *const T) -> Arc<T> {
 }
 
 pub(crate) fn is_close_notify(e: &io::Error) -> bool {
+	   println!("test 2!");
     e.kind() == ConnectionAborted && e.to_string().contains("CloseNotify")
 }
