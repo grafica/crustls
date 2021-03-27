@@ -3,14 +3,19 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 #
 # Rust
 #
-http_archive(
+#http_archive(
+#    name = "rules_rust",
+#    sha256 = "419eb5b01c9bfac786b686c90fe1d732080cd8dad53ba1ffa93c0b0828d20b57",
+#    strip_prefix = "rules_rust-920256900c367357bf4dae5719b8ebf210e91a0f",
+#    urls = [
+#        # Master branch as of 2021-03-23
+#        "https://github.com/bazelbuild/rules_rust/archive/920256900c367357bf4dae5719b8ebf210e91a0f.tar.gz",
+#    ],
+#)
+
+local_repository(
     name = "rules_rust",
-    sha256 = "419eb5b01c9bfac786b686c90fe1d732080cd8dad53ba1ffa93c0b0828d20b57",
-    strip_prefix = "rules_rust-920256900c367357bf4dae5719b8ebf210e91a0f",
-    urls = [
-        # Master branch as of 2021-03-23
-        "https://github.com/bazelbuild/rules_rust/archive/920256900c367357bf4dae5719b8ebf210e91a0f.tar.gz",
-    ],
+    path = "/home/sayrer/github/grafica/rules_rust",
 )
 
 load("@rules_rust//rust:repositories.bzl", "rust_repositories")
@@ -65,9 +70,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "cargo_raze",
-    sha256 = "317952eef66d3dcb90e27124f17449cedfcf8ef9202411da1a7b1d45419a1a15",
-    strip_prefix = "cargo-raze-c748b0c4ed7ad6b516f7838a27fee27a9d9c8664",
-    url = "https://github.com/google/cargo-raze/archive/c748b0c4ed7ad6b516f7838a27fee27a9d9c8664.tar.gz",
+#    sha256 = "317952eef66d3dcb90e27124f17449cedfcf8ef9202411da1a7b1d45419a1a15",
+    strip_prefix = "cargo-raze-79dfdd1d649879d01b83181a0567cf577f25901c",
+    url = "https://github.com/grafica/cargo-raze/archive/79dfdd1d649879d01b83181a0567cf577f25901c.tar.gz"
 )
 
 load("@cargo_raze//:repositories.bzl", "cargo_raze_repositories")

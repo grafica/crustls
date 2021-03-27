@@ -483,12 +483,12 @@ def raze_fetch_remote_crates():
 
     maybe(
         http_archive,
-        name = "raze__syn__1_0_64",
-        url = "https://crates.io/api/v1/crates/syn/1.0.64/download",
+        name = "raze__syn__1_0_65",
+        url = "https://crates.io/api/v1/crates/syn/1.0.65/download",
         type = "tar.gz",
-        sha256 = "3fd9d1e9976102a03c542daa2eff1b43f9d72306342f3f8b3ed5fb8908195d6f",
-        strip_prefix = "syn-1.0.64",
-        build_file = Label("//cargo/remote:BUILD.syn-1.0.64.bazel"),
+        sha256 = "f3a1d708c221c5a612956ef9f75b37e454e88d1f7b899fbd3a18d4252012d663",
+        strip_prefix = "syn-1.0.65",
+        build_file = Label("//cargo/remote:BUILD.syn-1.0.65.bazel"),
     )
 
     maybe(
