@@ -25,26 +25,26 @@ rust_repositories(edition = "2018")
 #
 # BuildBuddy
 #
-http_archive(
-    name = "io_buildbuddy_buildbuddy_toolchain",
-    sha256 = "9055a3e6f45773cd61931eba7b7cf35d6477ab6ad8fb2f18bf9815271fc682fe",
-    strip_prefix = "buildbuddy-toolchain-52aa5d2cc6c9ba7ee4063de35987be7d1b75f8e2",
-    urls = ["https://github.com/buildbuddy-io/buildbuddy-toolchain/archive/52aa5d2cc6c9ba7ee4063de35987be7d1b75f8e2.tar.gz"],
-)
-
-load("@io_buildbuddy_buildbuddy_toolchain//:deps.bzl", "buildbuddy_deps")
-
-buildbuddy_deps()
-
-load("@io_buildbuddy_buildbuddy_toolchain//:rules.bzl", "buildbuddy")
-
-buildbuddy(name = "buildbuddy_toolchain")
+#http_archive(
+#    name = "io_buildbuddy_buildbuddy_toolchain",
+#    sha256 = "9055a3e6f45773cd61931eba7b7cf35d6477ab6ad8fb2f18bf9815271fc682fe",
+#    strip_prefix = "buildbuddy-toolchain-52aa5d2cc6c9ba7ee4063de35987be7d1b75f8e2",
+#    urls = ["https://github.com/buildbuddy-io/buildbuddy-toolchain/archive/52aa5d2cc6c9ba7ee4063de35987be7d1b75f8e2.tar.gz"],
+#)
+#
+#load("@io_buildbuddy_buildbuddy_toolchain//:deps.bzl", "buildbuddy_deps")
+#
+#buildbuddy_deps()
+#
+#load("@io_buildbuddy_buildbuddy_toolchain//:rules.bzl", "buildbuddy")
+#
+#buildbuddy(name = "buildbuddy_toolchain")
 
 # Change master to the git tag you want.
 http_archive(
     name = "com_grail_bazel_toolchain",
     strip_prefix = "bazel-toolchain-master",
-    sha256 = "060d02182794e39033987c4f0b043c653154621ae9d01420aca1a9b63175447a",
+    sha256 = "f82f3ddfb4e5e11fd34edc518cbf2943c6e7680a6144976eb33e97369af5453e",
     urls = ["https://github.com/grailbio/bazel-toolchain/archive/master.tar.gz"],
 )
 
@@ -57,6 +57,7 @@ load("@com_grail_bazel_toolchain//toolchain:rules.bzl", "llvm_toolchain")
 llvm_toolchain(
     name = "llvm_toolchain",
     llvm_version = "8.0.0",
+    sysroot = {"linux": "@grafica_build//sysroots/debian_sid_amd64-sysroot:sysroot"},
 )
 
 load("@llvm_toolchain//:toolchains.bzl", "llvm_register_toolchains")
@@ -86,3 +87,11 @@ cargo_raze_transitive_deps()
 load("//cargo:crates.bzl", "raze_fetch_remote_crates")
 
 raze_fetch_remote_crates()
+
+#
+# Grafica Build
+#
+local_repository(                                                                                                                                     
+    name = "grafica_build",
+    path = "/home/sayrer/github/grafica/build",
+)

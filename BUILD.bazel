@@ -145,6 +145,6 @@ platform(
     ],
     exec_properties = {
         "OSFamily": "Linux",
-        "container-image": "docker://docker.io/sayrer/ubuntu_20_04_clang_cmake:2021_03_26k",
+        "container-image": "docker://docker.io/sayrer/ubuntu_for_bazel_with_cc_toolchain:2021_03_29b",
     },
 )
